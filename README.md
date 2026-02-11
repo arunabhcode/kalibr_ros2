@@ -76,10 +76,6 @@ source install/setup.bash
 source install/setup.bash
 ```
 
-### 3. 测试安装 | Test Installation
-```bash
-./test_installation.sh
-```
 
 ---
 
