@@ -1,0 +1,716 @@
+{
+  "table_of_contents": [
+    {
+      "title": "Continuous-Time Batch Estimation using Temporal Basis Functions",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          62.424,
+          74.448
+        ],
+        [
+          542.232,
+          74.448
+        ],
+        [
+          542.232,
+          92.24371337890625
+        ],
+        [
+          62.424,
+          92.24371337890625
+        ]
+      ]
+    },
+    {
+      "title": "I. INTRODUCTION",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          134.64000000000001,
+          415.00800000000004
+        ],
+        [
+          215.42399999999998,
+          415.00800000000004
+        ],
+        [
+          215.42399999999998,
+          427.3256530761719
+        ],
+        [
+          134.64000000000001,
+          427.3256530761719
+        ]
+      ]
+    },
+    {
+      "title": "II. RELATED WORK",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          130.356,
+          508.464
+        ],
+        [
+          219.70799999999997,
+          508.464
+        ],
+        [
+          219.70799999999997,
+          519.5167541503906
+        ],
+        [
+          130.356,
+          519.5167541503906
+        ]
+      ]
+    },
+    {
+      "title": "III. CONTINUOUS-TIME SLAM",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          363.52799999999996,
+          445.10400000000004
+        ],
+        [
+          503.676,
+          445.10400000000004
+        ],
+        [
+          503.676,
+          457.666259765625
+        ],
+        [
+          363.52799999999996,
+          457.666259765625
+        ]
+      ]
+    },
+    {
+      "title": "A. The Full SLAM Posterior",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          310.284,
+          555.192
+        ],
+        [
+          431.46,
+          555.192
+        ],
+        [
+          431.46,
+          567.9767456054688
+        ],
+        [
+          310.284,
+          567.9767456054688
+        ]
+      ]
+    },
+    {
+      "title": "B. The Gaussian Assumption",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          50.79600000000001,
+          358.776
+        ],
+        [
+          173.808,
+          358.776
+        ],
+        [
+          173.808,
+          371.13751220703125
+        ],
+        [
+          50.79600000000001,
+          371.13751220703125
+        ]
+      ]
+    },
+    {
+      "title": "C. Maximum A Posteriori Estimation",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          310.284,
+          166.32
+        ],
+        [
+          466.956,
+          166.32
+        ],
+        [
+          466.956,
+          178.614990234375
+        ],
+        [
+          310.284,
+          178.614990234375
+        ]
+      ]
+    },
+    {
+      "title": "D. Basis Function Formulation",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          310.284,
+          538.5600000000001
+        ],
+        [
+          441.7287902832031,
+          538.5600000000001
+        ],
+        [
+          441.7287902832031,
+          550.8321533203125
+        ],
+        [
+          310.284,
+          550.8321533203125
+        ]
+      ]
+    },
+    {
+      "title": "E. B-Spline State Representation",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          310.284,
+          341.352
+        ],
+        [
+          447.98400000000004,
+          341.352
+        ],
+        [
+          447.98400000000004,
+          354.1513977050781
+        ],
+        [
+          310.284,
+          354.1513977050781
+        ]
+      ]
+    },
+    {
+      "title": "IV. BATCH CONTINUOUS-TIME SLAM FOR IMU/CAMERA CALIBRATION",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          337.824,
+          437.97600000000006
+        ],
+        [
+          532.4399999999999,
+          437.97600000000006
+        ],
+        [
+          532.4399999999999,
+          460.94399999999996
+        ],
+        [
+          337.824,
+          460.94399999999996
+        ]
+      ]
+    },
+    {
+      "title": "A. Problem Setup",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          309.06,
+          626.472
+        ],
+        [
+          386.17199999999997,
+          626.472
+        ],
+        [
+          386.17199999999997,
+          638.3520000000001
+        ],
+        [
+          309.06,
+          638.3520000000001
+        ]
+      ]
+    },
+    {
+      "title": "B. Estimator",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          50.79600000000001,
+          427.68
+        ],
+        [
+          107.71199999999999,
+          427.68
+        ],
+        [
+          107.71199999999999,
+          439.5154113769531
+        ],
+        [
+          50.79600000000001,
+          439.5154113769531
+        ]
+      ]
+    },
+    {
+      "title": "C. Experimental Evaluation",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          309.672,
+          456.9839999999999
+        ],
+        [
+          428.4,
+          456.9839999999999
+        ],
+        [
+          428.4,
+          469.0703430175781
+        ],
+        [
+          309.672,
+          469.0703430175781
+        ]
+      ]
+    },
+    {
+      "title": "",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          92.41199999999999,
+          55.44
+        ],
+        [
+          257.03999999999996,
+          55.44
+        ],
+        [
+          257.03999999999996,
+          66.528
+        ],
+        [
+          92.41199999999999,
+          66.528
+        ]
+      ]
+    },
+    {
+      "title": "",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          145.04399999999998,
+          482.32800000000003
+        ],
+        [
+          203.796,
+          482.32800000000003
+        ],
+        [
+          203.796,
+          493.41600000000005
+        ],
+        [
+          145.04399999999998,
+          493.41600000000005
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          1820
+        ],
+        [
+          "Line",
+          117
+        ],
+        [
+          "Text",
+          9
+        ],
+        [
+          "PageFooter",
+          3
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Footnote",
+          2
+        ],
+        [
+          "ListItem",
+          2
+        ],
+        [
+          "PageHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          1832
+        ],
+        [
+          "Line",
+          110
+        ],
+        [
+          "Text",
+          13
+        ],
+        [
+          "ListItem",
+          5
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "ListGroup",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          2069
+        ],
+        [
+          "Line",
+          210
+        ],
+        [
+          "Text",
+          20
+        ],
+        [
+          "Equation",
+          18
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Footnote",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          2179
+        ],
+        [
+          "Line",
+          238
+        ],
+        [
+          "Text",
+          20
+        ],
+        [
+          "Equation",
+          13
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "surya",
+      "block_counts": [
+        [
+          "Text",
+          18
+        ],
+        [
+          "Equation",
+          12
+        ],
+        [
+          "Caption",
+          4
+        ],
+        [
+          "SectionHeader",
+          4
+        ],
+        [
+          "PageFooter",
+          4
+        ],
+        [
+          "Figure",
+          2
+        ],
+        [
+          "Picture",
+          2
+        ],
+        [
+          "Footnote",
+          2
+        ],
+        [
+          "FigureGroup",
+          1
+        ],
+        [
+          "PictureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          1961
+        ],
+        [
+          "Line",
+          150
+        ],
+        [
+          "Text",
+          12
+        ],
+        [
+          "Equation",
+          7
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Footnote",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 6,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          1803
+        ],
+        [
+          "Line",
+          113
+        ],
+        [
+          "Text",
+          6
+        ],
+        [
+          "Figure",
+          2
+        ],
+        [
+          "Caption",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "FigureGroup",
+          2
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 7,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          2412
+        ],
+        [
+          "Line",
+          139
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "ListItem",
+          2
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/Continuous-time_batch_estimation_using_temporal_basis_functions"
+}

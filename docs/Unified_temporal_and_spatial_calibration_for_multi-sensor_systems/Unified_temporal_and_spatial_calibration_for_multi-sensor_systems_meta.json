@@ -1,0 +1,671 @@
+{
+  "table_of_contents": [
+    {
+      "title": "Unified Temporal and Spatial Calibration for Multi-Sensor Systems",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          64.872,
+          73.65740966796875
+        ],
+        [
+          544.6800000000001,
+          73.65740966796875
+        ],
+        [
+          544.6800000000001,
+          94.3956298828125
+        ],
+        [
+          64.872,
+          94.3956298828125
+        ]
+      ]
+    },
+    {
+      "title": "I. INTRODUCTION",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          133.416,
+          360.36
+        ],
+        [
+          215.42399999999998,
+          360.36
+        ],
+        [
+          215.42399999999998,
+          372.9129943847656
+        ],
+        [
+          133.416,
+          372.9129943847656
+        ]
+      ]
+    },
+    {
+      "title": "II. RELATED WORK",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          130.356,
+          279.57599999999996
+        ],
+        [
+          219.70799999999997,
+          279.57599999999996
+        ],
+        [
+          219.70799999999997,
+          292.0771484375
+        ],
+        [
+          130.356,
+          292.0771484375
+        ]
+      ]
+    },
+    {
+      "title": "III. THEORY",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          404.532,
+          278.784
+        ],
+        [
+          463.284,
+          278.784
+        ],
+        [
+          463.284,
+          291.82415771484375
+        ],
+        [
+          404.532,
+          291.82415771484375
+        ]
+      ]
+    },
+    {
+      "title": "A. Estimating Time Offsets using Basis Functions",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          310.284,
+          338.976
+        ],
+        [
+          517.752,
+          338.976
+        ],
+        [
+          517.752,
+          352.4775390625
+        ],
+        [
+          310.284,
+          352.4775390625
+        ]
+      ]
+    },
+    {
+      "title": "B. An Example: Camera/IMU Calibration",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          51.40800000000001,
+          179.78400000000002
+        ],
+        [
+          227.14996337890625,
+          179.78400000000002
+        ],
+        [
+          227.14996337890625,
+          191.664
+        ],
+        [
+          51.40800000000001,
+          191.664
+        ]
+      ]
+    },
+    {
+      "title": "3) Measurement and Process Models: Each accelerome-",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          318.24,
+          56.232
+        ],
+        [
+          563.04,
+          56.232
+        ],
+        [
+          563.04,
+          68.904
+        ],
+        [
+          318.24,
+          68.904
+        ]
+      ]
+    },
+    {
+      "title": "IV. IMPLEMENTATION",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          124.848,
+          102.96000000000001
+        ],
+        [
+          223.99200000000002,
+          102.96000000000001
+        ],
+        [
+          223.99200000000002,
+          116.20184326171875
+        ],
+        [
+          124.848,
+          116.20184326171875
+        ]
+      ]
+    },
+    {
+      "title": "V. EXPERIMENTS",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          135.864,
+          110.88
+        ],
+        [
+          214.2,
+          110.88
+        ],
+        [
+          214.2,
+          123.6109619140625
+        ],
+        [
+          135.864,
+          123.6109619140625
+        ]
+      ]
+    },
+    {
+      "title": "A. Simulation",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          50.184000000000005,
+          552.0239999999999
+        ],
+        [
+          111.384,
+          552.0239999999999
+        ],
+        [
+          111.384,
+          565.4896850585938
+        ],
+        [
+          50.184000000000005,
+          565.4896850585938
+        ]
+      ]
+    },
+    {
+      "title": "B. Real Data",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          309.672,
+          446.688
+        ],
+        [
+          368.4326477050781,
+          446.688
+        ],
+        [
+          368.4326477050781,
+          459.09283447265625
+        ],
+        [
+          309.672,
+          459.09283447265625
+        ]
+      ]
+    },
+    {
+      "title": "VI. CONCLUSION AND FUTURE WORK",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          88.74,
+          323.928
+        ],
+        [
+          258.876,
+          323.928
+        ],
+        [
+          258.876,
+          337.7369079589844
+        ],
+        [
+          88.74,
+          337.7369079589844
+        ]
+      ]
+    },
+    {
+      "title": "ACKNOWLEDGMENT",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          119.952,
+          620.928
+        ],
+        [
+          229.5,
+          620.928
+        ],
+        [
+          229.5,
+          634.6687316894531
+        ],
+        [
+          119.952,
+          634.6687316894531
+        ]
+      ]
+    },
+    {
+      "title": "REFERENCES",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          403.308,
+          86.328
+        ],
+        [
+          463.5054626464844,
+          86.328
+        ],
+        [
+          463.5054626464844,
+          98.74176025390625
+        ],
+        [
+          403.308,
+          98.74176025390625
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          223
+        ],
+        [
+          "Line",
+          94
+        ],
+        [
+          "Text",
+          13
+        ],
+        [
+          "PageFooter",
+          3
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageHeader",
+          1
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "PictureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          471
+        ],
+        [
+          "Line",
+          128
+        ],
+        [
+          "Text",
+          13
+        ],
+        [
+          "Equation",
+          5
+        ],
+        [
+          "ListItem",
+          4
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          1195
+        ],
+        [
+          "Line",
+          232
+        ],
+        [
+          "Equation",
+          18
+        ],
+        [
+          "Text",
+          16
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          469
+        ],
+        [
+          "Line",
+          121
+        ],
+        [
+          "Text",
+          7
+        ],
+        [
+          "ListItem",
+          6
+        ],
+        [
+          "Figure",
+          2
+        ],
+        [
+          "Caption",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "FigureGroup",
+          2
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ],
+        [
+          "Footnote",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          438
+        ],
+        [
+          "Line",
+          138
+        ],
+        [
+          "Text",
+          9
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          417
+        ],
+        [
+          "Line",
+          116
+        ],
+        [
+          "Text",
+          5
+        ],
+        [
+          "Caption",
+          4
+        ],
+        [
+          "Figure",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "FigureGroup",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "PictureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 6,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          398
+        ],
+        [
+          "Line",
+          132
+        ],
+        [
+          "Text",
+          7
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Table",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ],
+        [
+          "TableGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data/Unified_temporal_and_spatial_calibration_for_multi-sensor_systems"
+}
