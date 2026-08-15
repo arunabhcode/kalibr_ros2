@@ -9,6 +9,12 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <depend>sm_common</depend>
+  <depend>sm_eigen</depend>
+  <depend>sm_kinematics</depend>
+  <depend>sm_random</depend>
+  <depend>sparse_block_matrix</depend>
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>

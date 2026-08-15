@@ -9,6 +9,13 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <depend>aslam_backend</depend>
+  <depend>sm_boost</depend>
+  <depend>sm_kinematics</depend>
+  <depend>sm_random</depend>
+  <depend>sm_timing</depend>
+  <depend>sparse_block_matrix</depend>
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>

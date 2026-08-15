@@ -9,6 +9,10 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <depend>aslam_cameras</depend>
+  <depend>sm_common</depend>
+  <depend>sm_opencv</depend>
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>

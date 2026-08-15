@@ -10,6 +10,15 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>ament_cmake_python</buildtool_depend>
 
+  <depend>numpy_eigen</depend>
+  <depend>python_module</depend>
+  <depend>sm_common</depend>
+  <depend>sm_kinematics</depend>
+  <depend>sm_logging</depend>
+  <depend>sm_matrix_archive</depend>
+  <depend>sm_property_tree</depend>
+  <depend>sm_timing</depend>
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>

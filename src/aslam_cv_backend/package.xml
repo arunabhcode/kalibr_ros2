@@ -9,6 +9,14 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <depend>aslam_backend</depend>
+  <depend>aslam_backend_expressions</depend>
+  <depend>aslam_cameras</depend>
+  <depend>aslam_splines</depend>
+  <depend>bsplines</depend>
+  <depend>sm_kinematics</depend>
+  <depend>sm_property_tree</depend>
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>
