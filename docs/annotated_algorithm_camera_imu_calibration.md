@@ -149,6 +149,8 @@ $$
 
 Source: `src/bsplines/src/BSpline.cpp`.
 
+`u` is just the percentage of progress through the current knot interval. Kalibr uses it to calculate how much influence each nearby control point should have.
+
 ```cpp
 Eigen::VectorXd BSpline::evalD(double t, int derivativeOrder) const
 {
@@ -257,6 +259,15 @@ $$
 \tag{U-8 / CT-28}
 $$
 **Convention-qualified mapping —** the repository has two explicitly signed/frame-qualified methods. The method used by IMU residuals is `angularVelocityBodyFrame`; its source comment names it $\omega^b_{w,b}$, “angular velocity of the world frame as seen from the body frame, expressed in the body frame,” and the implementation includes the minus sign and $\mathbf C_{w,b}^T$:
+
+`S` is the Jacobian that converts the time derivative of the Rodrigues parameters into physical angular velocity.
+
+``` cpp
+S(phi) =
+    I
+    - ((1 - cos(theta)) / theta²) * Phi
+    + ((theta - sin(theta)) / theta³) * Phi²
+```
 
 ```cpp
 // \omega_b_{w,b} (angular velocity of the world frame as seen from the body frame, expressed in the body frame)
@@ -374,9 +385,6 @@ pose = bsplines.BSplinePose(splineOrder, sm.RotationVector() )
 
 times = np.array([obs.time().toSec()+self.timeshiftCamToImuPrior for obs in self.targetObservations ])
 curve = np.matrix([ pose.transformationToCurveValue( np.dot(obs.T_t_c().T(), T_c_b) ) for obs in self.targetObservations]).T
-```
-
-```python
 seconds = times[-1] - times[0]
 knots = int(round(seconds * poseKnotsPerSecond))
 pose.initPoseSplineSparse(times, curve, knots, 1e-4)
@@ -871,6 +879,13 @@ self.gravity_w = mean_a_w / np.linalg.norm(mean_a_w) * 9.80655
 
 **IMPLEMENTATION INITIALIZATION / DIVERGENCE —** the papers treat gravity as an assumed prior/initial quantity; the implementation averages rotated accelerometer samples and normalizes to $9.80655\,\mathrm{m/s^2}$. This average is not a final-objective term; the resulting direction initializes the active gravity variable.
 
+M12.3 rotates all overlapping accelerometer samples into the world frame, averages them, normalizes the result to 9.80655 m/s², and uses that only as the initial gravity direction. This assumes random motion hence
+
+```
+mean(true linear acceleration in world) ≈ 0
+mean(accelerometer bias) ≈ 0
+```
+
 ### M12.4 Secondary-IMU initializer extension
 
 For each non-reference IMU, the optional initializer uses an order-3 angular-rate spline at 50 knots/s, then solves relative orientation with 2 threads, `convergenceDeltaX=1e-4`, `convergenceDeltaJ=1`, and at most 50 iterations. If `--imu-delay-by-correlation` is enabled, the discrete correlation estimate is refined by Nelder–Mead with `maxiter=100`. These values belong only to the multi-IMU **EXTENSION**, not the camera–IMU scalar-delay path.
@@ -883,7 +898,7 @@ sequenceDiagram
     participant Cam as IccCameraChain
     participant IMU as IccImu
     participant Cal as IccCalibrator
-    participant Opt as Optimizer2
+    participant Solver as Optimizer2
 
     CLI->>Cam: extract target observations
     CLI->>IMU: load IMU samples
@@ -894,7 +909,19 @@ sequenceDiagram
     Cal->>Cam: fit padded order-6 pose spline
     Cal->>IMU: initialize bias splines
     Cal->>Cal: add final design variables and residuals
-    CLI->>Opt: optimize joint problem
+    CLI->>Solver: optimize joint problem
+```
+The flow is:
+
+```
+Target corner detections
+    -> estimate one camera pose per image
+    -> fit an initial continuous camera pose spline
+    -> use gyro to initialize camera–IMU rotation
+    -> use accelerometer average to initialize gravity
+    -> compose camera poses with the extrinsic prior
+    -> fit the final initial body/IMU pose spline
+    -> jointly optimize
 ```
 
 ---
