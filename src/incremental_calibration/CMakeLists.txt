@@ -26,11 +26,6 @@ include_directories(include ${EIGEN3_INCLUDE_DIRS})
 add_library(${PROJECT_NAME}
   src/base/Serializable.cpp
   src/base/Timestamp.cpp
-  src/base/Condition.cpp
-  src/base/Mutex.cpp
-  src/base/Thread.cpp
-  src/base/Threads.cpp
-  src/base/Timer.cpp
   src/exceptions/Exception.cpp
   src/exceptions/InvalidOperationException.cpp
   src/exceptions/NullPointerException.cpp
