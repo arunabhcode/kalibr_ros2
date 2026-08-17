@@ -85,7 +85,7 @@ ament_python_install_package(aslam_backend
 )
 
 install(TARGETS ${PROJECT_NAME}
-  LIBRARY DESTINATION local/lib/python3.10/dist-packages/aslam_backend
+  LIBRARY DESTINATION ${PYTHON_INSTALL_DIR}/aslam_backend
 )
 
 install(DIRECTORY include/

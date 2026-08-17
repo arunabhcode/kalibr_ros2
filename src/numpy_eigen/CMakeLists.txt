@@ -63,7 +63,7 @@ ament_python_install_package(${PROJECT_NAME}
 
 # Install the Python module .so to the same location as the __init__.py
 install(TARGETS ${PROJECT_NAME}
-  LIBRARY DESTINATION local/lib/python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/dist-packages/numpy_eigen
+  LIBRARY DESTINATION ${PYTHON_INSTALL_DIR}/numpy_eigen
 )
 
 # Install headers

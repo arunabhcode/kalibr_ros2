@@ -99,7 +99,7 @@ set_target_properties(libkalibr_errorterms_python PROPERTIES
 )
 
 install(TARGETS libkalibr_errorterms_python
-  LIBRARY DESTINATION local/lib/python3.10/dist-packages
+  LIBRARY DESTINATION ${PYTHON_INSTALL_DIR}
 )
 
 # Install Python modules

@@ -90,7 +90,7 @@ ament_python_install_package(sm
 
 # Install the Python module (.so) to the same location as Python files
 install(TARGETS ${PROJECT_NAME}
-  LIBRARY DESTINATION local/lib/python3.10/dist-packages/sm
+  LIBRARY DESTINATION ${PYTHON_INSTALL_DIR}/sm
 )
 
 # Install headers

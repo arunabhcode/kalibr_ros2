@@ -68,7 +68,7 @@ ament_python_install_package(bsplines
 )
 
 install(TARGETS ${PROJECT_NAME}
-  LIBRARY DESTINATION local/lib/python3.10/dist-packages/bsplines
+  LIBRARY DESTINATION ${PYTHON_INSTALL_DIR}/bsplines
 )
 
 ament_export_dependencies(numpy_eigen bsplines sparse_block_matrix sm_common sm_kinematics Boost Python3 Eigen3)

@@ -71,7 +71,7 @@ ament_python_install_package(incremental_calibration
 )
 
 install(TARGETS ${PROJECT_NAME}
-  LIBRARY DESTINATION local/lib/python3.10/dist-packages/incremental_calibration
+  LIBRARY DESTINATION ${PYTHON_INSTALL_DIR}/incremental_calibration
 )
 
 install(DIRECTORY include/

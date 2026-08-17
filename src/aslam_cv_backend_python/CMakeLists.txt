@@ -83,7 +83,7 @@ ament_python_install_package(aslam_cv_backend
 )
 
 install(TARGETS ${PROJECT_NAME}
-  LIBRARY DESTINATION local/lib/python3.10/dist-packages/aslam_cv_backend
+  LIBRARY DESTINATION ${PYTHON_INSTALL_DIR}/aslam_cv_backend
 )
 
 install(DIRECTORY include/
