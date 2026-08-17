@@ -18,9 +18,7 @@ find_package(numpy_eigen REQUIRED)
 find_package(sm_kinematics REQUIRED)
 find_package(sm_timing REQUIRED)
 find_package(sm_logging REQUIRED)
-find_package(sm_matrix_archive REQUIRED)
 find_package(sm_property_tree REQUIRED)
-find_package(python_module REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system serialization python thread filesystem regex)
 find_package(Python3 REQUIRED COMPONENTS Development NumPy)
@@ -50,7 +48,6 @@ add_library(${PROJECT_NAME} SHARED
   src/exportPropertyTree.cpp
   src/exportEigen.cpp
   src/exportUncertainVector.cpp
-  src/exportMatrixArchive.cpp
   src/export_kinematics_property_tree.cpp
   src/export_eigen_property_tree.cpp
   src/Logging.cpp
@@ -77,7 +74,7 @@ target_link_libraries(${PROJECT_NAME}
 
 ament_target_dependencies(${PROJECT_NAME}
   sm_common numpy_eigen sm_kinematics sm_timing sm_logging
-  sm_matrix_archive sm_property_tree python_module
+  sm_property_tree
 )
 
 # Python extension modules should not have "lib" prefix
@@ -101,7 +98,7 @@ install(DIRECTORY include/
   DESTINATION include
 )
 
-ament_export_dependencies(sm_common numpy_eigen sm_kinematics sm_timing sm_logging sm_matrix_archive sm_property_tree python_module Boost Python3 Eigen3)
+ament_export_dependencies(sm_common numpy_eigen sm_kinematics sm_timing sm_logging sm_property_tree Boost Python3 Eigen3)
 ament_export_include_directories(include)
 
 ament_package()

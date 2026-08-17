@@ -15,7 +15,6 @@ find_package(numpy_eigen REQUIRED)
 find_package(aslam_backend REQUIRED)
 find_package(incremental_calibration REQUIRED)
 find_package(sm_property_tree REQUIRED)
-find_package(python_module REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system serialization python thread filesystem regex)
 find_package(Python3 REQUIRED COMPONENTS Development NumPy)
@@ -59,7 +58,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 ament_target_dependencies(${PROJECT_NAME}
-  numpy_eigen aslam_backend incremental_calibration sm_property_tree python_module
+  numpy_eigen aslam_backend incremental_calibration sm_property_tree
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -79,7 +78,7 @@ install(DIRECTORY include/
   DESTINATION include
 )
 
-ament_export_dependencies(numpy_eigen aslam_backend incremental_calibration sm_property_tree python_module Boost Python3 Eigen3)
+ament_export_dependencies(numpy_eigen aslam_backend incremental_calibration sm_property_tree Boost Python3 Eigen3)
 ament_export_include_directories(include)
 
 ament_package()

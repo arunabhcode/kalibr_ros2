@@ -16,7 +16,6 @@ find_package(bsplines REQUIRED)
 find_package(sparse_block_matrix REQUIRED)
 find_package(sm_common REQUIRED)
 find_package(sm_kinematics REQUIRED)
-find_package(python_module REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system serialization python thread filesystem regex)
 find_package(Python3 REQUIRED COMPONENTS Development NumPy)
@@ -56,7 +55,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 ament_target_dependencies(${PROJECT_NAME}
-  numpy_eigen bsplines sparse_block_matrix sm_common sm_kinematics python_module
+  numpy_eigen bsplines sparse_block_matrix sm_common sm_kinematics
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -72,6 +71,6 @@ install(TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION local/lib/python3.10/dist-packages/bsplines
 )
 
-ament_export_dependencies(numpy_eigen bsplines sparse_block_matrix sm_common sm_kinematics python_module Boost Python3 Eigen3)
+ament_export_dependencies(numpy_eigen bsplines sparse_block_matrix sm_common sm_kinematics Boost Python3 Eigen3)
 
 ament_package()

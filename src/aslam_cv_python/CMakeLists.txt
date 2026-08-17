@@ -23,7 +23,6 @@ find_package(aslam_time REQUIRED)
 find_package(aslam_splines REQUIRED)
 find_package(bsplines REQUIRED)
 find_package(sparse_block_matrix REQUIRED)
-find_package(python_module REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system serialization python thread filesystem regex)
 find_package(Python3 REQUIRED COMPONENTS Development NumPy)
@@ -77,7 +76,7 @@ target_link_libraries(${PROJECT_NAME}
 
 ament_target_dependencies(${PROJECT_NAME}
   numpy_eigen sm_python aslam_backend aslam_backend_expressions aslam_cameras aslam_cv_backend 
-  aslam_cv_serialization aslam_imgproc aslam_time aslam_splines bsplines sparse_block_matrix python_module
+  aslam_cv_serialization aslam_imgproc aslam_time aslam_splines bsplines sparse_block_matrix
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -97,7 +96,7 @@ install(DIRECTORY include/
   DESTINATION include
 )
 
-ament_export_dependencies(numpy_eigen sm_python aslam_cameras aslam_cv_backend aslam_cv_serialization aslam_imgproc aslam_time python_module Boost Python3 Eigen3 OpenCV)
+ament_export_dependencies(numpy_eigen sm_python aslam_cameras aslam_cv_backend aslam_cv_serialization aslam_imgproc aslam_time Boost Python3 Eigen3 OpenCV)
 ament_export_include_directories(include)
 
 ament_package()

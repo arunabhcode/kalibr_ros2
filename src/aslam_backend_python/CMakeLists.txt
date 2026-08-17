@@ -18,7 +18,6 @@ find_package(sparse_block_matrix REQUIRED)
 find_package(sm_common REQUIRED)
 find_package(sm_kinematics REQUIRED)
 find_package(sm_timing REQUIRED)
-find_package(python_module REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system serialization python thread filesystem regex)
 find_package(Python3 REQUIRED COMPONENTS Development NumPy)
@@ -73,7 +72,7 @@ target_link_libraries(${PROJECT_NAME}
 
 ament_target_dependencies(${PROJECT_NAME}
   numpy_eigen aslam_backend aslam_backend_expressions sparse_block_matrix
-  sm_common sm_kinematics sm_timing python_module
+  sm_common sm_kinematics sm_timing
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -93,7 +92,7 @@ install(DIRECTORY include/
   DESTINATION include
 )
 
-ament_export_dependencies(numpy_eigen aslam_backend aslam_backend_expressions sparse_block_matrix sm_common sm_kinematics sm_timing python_module Boost Python3 Eigen3)
+ament_export_dependencies(numpy_eigen aslam_backend aslam_backend_expressions sparse_block_matrix sm_common sm_kinematics sm_timing Boost Python3 Eigen3)
 ament_export_include_directories(include)
 
 ament_package()

@@ -30,7 +30,6 @@ find_package(aslam_splines_python REQUIRED)
 find_package(aslam_cameras_april REQUIRED)
 find_package(incremental_calibration_python REQUIRED)
 find_package(numpy_eigen REQUIRED)
-find_package(python_module REQUIRED)
 find_package(sparse_block_matrix REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system serialization python thread filesystem regex)
@@ -92,7 +91,6 @@ ament_target_dependencies(libkalibr_errorterms_python
   numpy_eigen
   aslam_backend
   aslam_backend_expressions
-  python_module
 )
 
 set_target_properties(libkalibr_errorterms_python PROPERTIES

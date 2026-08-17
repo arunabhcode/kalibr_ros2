@@ -24,7 +24,6 @@ find_package(aslam_backend_python REQUIRED)
 find_package(sm_timing REQUIRED)
 find_package(aslam_cameras REQUIRED)
 find_package(aslam_time REQUIRED)
-find_package(python_module REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system serialization python thread filesystem regex)
 find_package(Python3 REQUIRED COMPONENTS Development NumPy)
@@ -66,7 +65,7 @@ target_link_libraries(${PROJECT_NAME}
 ament_target_dependencies(${PROJECT_NAME}
   numpy_eigen aslam_splines bsplines_python bsplines sparse_block_matrix
   sm_common sm_kinematics aslam_backend aslam_backend_expressions 
-  aslam_backend_python sm_timing aslam_cameras aslam_time python_module
+  aslam_backend_python sm_timing aslam_cameras aslam_time
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -82,6 +81,6 @@ install(TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION local/lib/python3.10/dist-packages/aslam_splines
 )
 
-ament_export_dependencies(numpy_eigen aslam_splines bsplines_python bsplines sparse_block_matrix sm_common sm_kinematics aslam_backend aslam_backend_expressions aslam_backend_python sm_timing aslam_cameras aslam_time python_module Boost Python3 Eigen3)
+ament_export_dependencies(numpy_eigen aslam_splines bsplines_python bsplines sparse_block_matrix sm_common sm_kinematics aslam_backend aslam_backend_expressions aslam_backend_python sm_timing aslam_cameras aslam_time Boost Python3 Eigen3)
 
 ament_package()

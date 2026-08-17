@@ -19,7 +19,6 @@ find_package(sm_boost REQUIRED)
 find_package(sm_eigen REQUIRED)
 find_package(sm_python REQUIRED)
 find_package(numpy_eigen REQUIRED)
-find_package(python_module REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system serialization python thread filesystem regex)
 find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
@@ -112,7 +111,6 @@ ament_target_dependencies(${PROJECT_NAME}_python
   numpy_eigen
   sm_python
   aslam_cameras
-  python_module
 )
 
 set_target_properties(${PROJECT_NAME}_python PROPERTIES
