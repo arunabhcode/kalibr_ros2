@@ -29,7 +29,6 @@ add_library(${PROJECT_NAME}
   src/exceptions/Exception.cpp
   src/exceptions/InvalidOperationException.cpp
   src/exceptions/NullPointerException.cpp
-  src/exceptions/SystemException.cpp
   src/statistics/NormalDistribution1v.cpp
   src/statistics/ChiSquareDistribution.cpp
   src/statistics/EstimatorMLNormal1v.cpp
