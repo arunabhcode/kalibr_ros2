@@ -10,7 +10,13 @@ import aslam_cv_backend as cvb
 import sm
 
 class AslamCamera(object):
-    def __init__(self, camera_model, intrinsics, dist_model, dist_coeff, resolution):
+    def __init__(self, camera_model, intrinsics, dist_model, dist_coeff, resolution, line_delay=None):
+        rollingShutter = line_delay is not None
+        if rollingShutter and (camera_model, dist_model) not in {
+                ('pinhole', 'radtan'), ('pinhole', 'equidistant'), ('omni', 'radtan')}:
+            raise RuntimeError("Rolling shutter is not supported for camera model '{}' with distortion model '{}'".format(
+                camera_model, dist_model))
+        self.shutterType = cv.RollingShutter if rollingShutter else cv.GlobalShutter
         #setup the aslam camera
         if camera_model == 'pinhole':
             focalLength = intrinsics[0:2]
@@ -30,6 +36,11 @@ class AslamCamera(object):
                 self.frameType = cv.DistortedPinholeFrame
                 self.keypointType = cv.Keypoint2
                 self.reprojectionErrorType = cvb.DistortedPinholeReprojectionErrorSimple
+                if rollingShutter:
+                    self.geometry = cv.DistortedPinholeRsCameraGeometry(proj, cv.RollingShutter(line_delay))
+                    self.frameType = cv.DistortedPinholeRsFrame
+                    self.reprojectionErrorType = cvb.DistortedPinholeRsReprojectionErrorSimple
+                    self.dv = cvb.DistortedPinholeRsCameraGeometryDesignVariable(self.geometry)
                 self.undistorterType = cv.PinholeUndistorterNoMask
                 
             elif dist_model == 'equidistant':
@@ -45,6 +56,11 @@ class AslamCamera(object):
                 self.frameType = cv.EquidistantDistortedPinholeFrame
                 self.keypointType = cv.Keypoint2
                 self.reprojectionErrorType = cvb.EquidistantDistortedPinholeReprojectionErrorSimple
+                if rollingShutter:
+                    self.geometry = cv.EquidistantDistortedPinholeRsCameraGeometry(proj, cv.RollingShutter(line_delay))
+                    self.frameType = cv.EquidistantPinholeRsFrame
+                    self.reprojectionErrorType = cvb.EquidistantDistortedPinholeRsReprojectionErrorSimple
+                    self.dv = cvb.EquidistantDistortedPinholeRsCameraGeometryDesignVariable(self.geometry)
                 self.undistorterType = cv.EquidistantPinholeUndistorterNoMask
                 
             elif dist_model == 'fov':
@@ -92,6 +108,11 @@ class AslamCamera(object):
                 self.frameType = cv.DistortedOmniFrame
                 self.keypointType = cv.Keypoint2
                 self.reprojectionErrorType = cvb.DistortedOmniReprojectionErrorSimple
+                if rollingShutter:
+                    self.geometry = cv.DistortedOmniRsCameraGeometry(proj, cv.RollingShutter(line_delay))
+                    self.frameType = cv.DistortedOmniRsFrame
+                    self.reprojectionErrorType = cvb.DistortedOmniRsReprojectionErrorSimple
+                    self.dv = cvb.DistortedOmniRsCameraGeometryDesignVariable(self.geometry)
                 self.undistorterType = cv.OmniUndistorterNoMask
                 
             elif dist_model == 'equidistant':
@@ -176,7 +197,7 @@ class AslamCamera(object):
         camera_model, intrinsics = params.getIntrinsics()
         dist_model, dist_coeff = params.getDistortion()
         resolution = params.getResolution()
-        return AslamCamera(camera_model, intrinsics, dist_model, dist_coeff, resolution)
+        return AslamCamera(camera_model, intrinsics, dist_model, dist_coeff, resolution, params.getLineDelay())
         
 
 #wrapper to ctach all KeyError exception (field missing in yaml ...)
@@ -361,7 +382,20 @@ class CameraParameters(ParametersBase):
         self.data["distortion_model"] = model
         self.data["distortion_coeffs"] = [ float(val) for val in coeffs ]
 
+    def checkLineDelay(self, line_delay):
+        if isinstance(line_delay, bool) or not isinstance(line_delay, float):
+            self.raiseError("line_delay must be a float in seconds per row")
+        if not math.isfinite(line_delay) or line_delay <= 0.0:
+            self.raiseError("line_delay must be finite and positive")
+
+    def getLineDelay(self):
+        line_delay = self.data.get("line_delay")
+        if line_delay is not None:
+            self.checkLineDelay(line_delay)
+        return line_delay
+
     def setLineDelay(self, line_delay):
+        self.checkLineDelay(line_delay)
         self.data["line_delay"] = line_delay
 
     #resolution

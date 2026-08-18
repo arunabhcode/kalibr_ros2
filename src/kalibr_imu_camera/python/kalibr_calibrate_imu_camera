@@ -79,6 +79,7 @@ def parseArgs():
     groupCam.add_argument('--recompute-camera-chain-extrinsics',  action='store_true', dest='recompute_chain_extrinsics', \
                           help='Recompute the camera chain extrinsics. This option is exclusively recommended for debugging purposes in order to identify problems with the camera chain extrinsics.')
     groupCam.add_argument('--reprojection-sigma', type=float, default=1.0, dest='reprojection_sigma', help='Standard deviation of the distribution of reprojected corner points [px]. (default: %(default)s)', required=False)
+    groupCam.add_argument('--estimate-line-delay', action='store_true', dest='estimate_line_delay', help='Estimate rolling-shutter line delay.', required=False)
     
     groupImu = parser.add_argument_group('IMU configuration')
     groupImu.add_argument('--imu', dest='imu_yamls', nargs='+', help='Yaml files holding the IMU noise parameters. The first IMU will be the reference IMU.', required=True, action=Once)
@@ -173,6 +174,12 @@ def main():
     chain.printDetails()   
     camChain = sens.IccCameraChain(chain, targetConfig, parsed)
 
+    if parsed.estimate_line_delay and not any(cam.isRollingShutter() for cam in camChain.camList):
+        camera_indices = ", ".join("cam{0}".format(i) for i in range(len(camChain.camList)))
+        sm.logError("Cannot estimate line delay in {0}. No rolling-shutter camera found at {1}.".format(
+            parsed.chain_yaml, camera_indices))
+        sys.exit(2)
+
     #create a calibrator instance
     iCal = IccCalibrator()
 
@@ -195,6 +202,7 @@ def main():
                       huberGyro=-1,
                       noTimeCalibration=parsed.no_time,
                       noChainExtrinsics=(not parsed.recompute_chain_extrinsics),
+                      estimateLineDelay=parsed.estimate_line_delay,
                       maxIterations=parsed.max_iter,
                       timeOffsetPadding=parsed.timeoffset_padding,
                       verbose = parsed.verbose)

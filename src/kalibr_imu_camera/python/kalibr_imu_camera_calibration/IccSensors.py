@@ -315,7 +315,17 @@ class IccCamera():
         pose.initPoseSplineSparse(times, curve, knots, 1e-4)
         return pose
     
-    def addDesignVariables(self, problem, noExtrinsics=True, noTimeCalibration=True, baselinedv_group_id=HELPER_GROUP_ID):
+    def isRollingShutter(self):
+        return self.camera.shutterType == acv.RollingShutter
+
+    def getLineDelaySeconds(self):
+        return float(self.camera.geometry.shutter().lineDelay()) if self.isRollingShutter() else None
+
+    def getResultLineDelay(self):
+        return float(self.camera.dv.shutterDesignVariable().value().lineDelay()) if self.isRollingShutter() else None
+
+    def addDesignVariables(self, problem, noExtrinsics=True, noTimeCalibration=True,
+                           baselinedv_group_id=HELPER_GROUP_ID, estimateLineDelay=False):
         # Add the calibration design variables.
         active = not noExtrinsics
         self.T_c_b_Dv = aopt.TransformationDv(self.T_extrinsic, rotationActive=active, translationActive=active)
@@ -326,6 +336,9 @@ class IccCamera():
         self.cameraTimeToImuTimeDv = aopt.Scalar(0.0)
         self.cameraTimeToImuTimeDv.setActive( not noTimeCalibration )
         problem.addDesignVariable(self.cameraTimeToImuTimeDv, CALIBRATION_GROUP_ID)
+        if self.isRollingShutter():
+            self.camera.dv.setActive(False, False, estimateLineDelay)
+            problem.addDesignVariable(self.camera.dv.shutterDesignVariable(), CALIBRATION_GROUP_ID)
         
     def addCameraErrorTerms(self, problem, poseSplineDv, T_cN_b, blakeZissermanDf=0.0, timeOffsetPadding=0.0):
         print("")
@@ -337,6 +350,10 @@ class IccCamera():
 
         allReprojectionErrors = list()
         error_t = self.camera.reprojectionErrorType
+        rollingShutter = self.isRollingShutter()
+        if rollingShutter:
+            centerRowTemporalOffset = self.camera.dv.temporalOffset(
+                np.array([0.0, self.camConfig.getResolution()[1] / 2.0]))
         
         for obs in self.targetObservations:
             # Build a transformation expression for the time.
@@ -348,17 +365,24 @@ class IccCamera():
             if frameTimeScalar <= poseSplineDv.spline().t_min() or frameTimeScalar >= poseSplineDv.spline().t_max():
                 continue
             
-            T_w_b = poseSplineDv.transformationAtTime(frameTime, timeOffsetPadding, timeOffsetPadding)
-            T_b_w = T_w_b.inverse()
+            if not rollingShutter:
+                T_w_b = poseSplineDv.transformationAtTime(frameTime, timeOffsetPadding, timeOffsetPadding)
+                T_b_w = T_w_b.inverse()
 
-            #calibration target coords to camera N coords
-            #T_b_w: from world to imu coords
-            #T_cN_b: from imu to camera N coords
-            T_c_w = T_cN_b  * T_b_w
+                #calibration target coords to camera N coords
+                #T_b_w: from world to imu coords
+                #T_cN_b: from imu to camera N coords
+                T_c_w = T_cN_b  * T_b_w
             
             #get the image and target points corresponding to the frame
             imageCornerPoints =  np.array( obs.getCornersImageFrame() ).T
             targetCornerPoints = np.array( obs.getCornersTargetFrame() ).T
+            if rollingShutter:
+                cornerTimes = [frameTime + self.camera.dv.temporalOffset(imageCornerPoints[:, pidx])
+                               - centerRowTemporalOffset for pidx in range(imageCornerPoints.shape[1])]
+                if any(t.toScalar() <= poseSplineDv.spline().t_min() or
+                       t.toScalar() >= poseSplineDv.spline().t_max() for t in cornerTimes):
+                    raise RuntimeError("Spline range excludes a rolling-shutter corner time")
             
             #setup an aslam frame (handles the distortion)
             frame = self.camera.frameType()
@@ -378,6 +402,10 @@ class IccCamera():
             reprojectionErrors=list()
             for pidx in range(0,imageCornerPoints.shape[1]):
                 #add all target points
+                if rollingShutter:
+                    T_w_b = poseSplineDv.transformationAtTime(
+                        cornerTimes[pidx], timeOffsetPadding, timeOffsetPadding)
+                    T_c_w = T_cN_b * T_w_b.inverse()
                 targetPoint = np.insert( targetCornerPoints.transpose()[pidx], 3, 1)
                 p = T_c_w *  aopt.HomogeneousExpression( targetPoint )
              
@@ -515,8 +543,12 @@ class IccCameraChain():
     
     def getResultTimeShift(self, camNr):
         return self.camList[camNr].cameraTimeToImuTimeDv.toScalar() + self.camList[camNr].timeshiftCamToImuPrior
+
+    def getResultLineDelay(self, camNr):
+        return self.camList[camNr].getResultLineDelay()
     
-    def addDesignVariables(self, problem, noTimeCalibration = True, noChainExtrinsics = True):
+    def addDesignVariables(self, problem, noTimeCalibration=True, noChainExtrinsics=True,
+                           estimateLineDelay=False):
         #add the design variables (T(R,t) & time)  for all induvidual cameras
         for camNr, cam in enumerate( self.camList ):
             #the first "baseline" dv is between the imu and cam0
@@ -526,7 +558,9 @@ class IccCameraChain():
             else:
                 noExtrinsics = noChainExtrinsics
                 baselinedv_group_id = HELPER_GROUP_ID
-            cam.addDesignVariables(problem, noExtrinsics, noTimeCalibration, baselinedv_group_id=baselinedv_group_id)
+            cam.addDesignVariables(problem, noExtrinsics, noTimeCalibration,
+                                   baselinedv_group_id=baselinedv_group_id,
+                                   estimateLineDelay=estimateLineDelay)
     
     #add the reprojection error terms for all cameras in the chain
     def addCameraChainErrorTerms(self, problem, poseSplineDv, blakeZissermanDf=-1, timeOffsetPadding=0.0):

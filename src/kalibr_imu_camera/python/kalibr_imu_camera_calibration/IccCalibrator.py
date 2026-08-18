@@ -27,7 +27,8 @@ class IccCalibrator(object):
         self.ImuList = []
 
     def initDesignVariables(self, problem, poseSpline, noTimeCalibration, noChainExtrinsics=True, \
-                            estimateGravityLength=False, initialGravityEstimate=np.array([0.0,9.81,0.0])):        
+                            estimateGravityLength=False, initialGravityEstimate=np.array([0.0,9.81,0.0]),
+                            estimateLineDelay=False):
         # Initialize the system pose spline (always attached to imu0) 
         self.poseDv = asp.BSplinePoseDesignVariable( poseSpline )
         addSplineDesignVariables(problem, self.poseDv)
@@ -46,7 +47,8 @@ class IccCalibrator(object):
             imu.addDesignVariables( problem )
         
         #Add all DVs for the camera chain    
-        self.CameraChain.addDesignVariables( problem, noTimeCalibration, noChainExtrinsics )
+        self.CameraChain.addDesignVariables(problem, noTimeCalibration, noChainExtrinsics,
+                                            estimateLineDelay=estimateLineDelay)
 
     def addPoseMotionTerms(self, problem, tv, rv):
         wt = 1.0/tv;
@@ -74,6 +76,7 @@ class IccCalibrator(object):
                       huberGyro=-1,
                       noTimeCalibration=False,
                       noChainExtrinsics=True,
+                      estimateLineDelay=False,
                       maxIterations=20,
                       gyroNoiseScale=1.0,
                       accelNoiseScale=1.0,
@@ -91,6 +94,7 @@ class IccCalibrator(object):
         print("\tAcceleration Huber width (sigma): %f" % (huberAccel))
         print("\tGyroscope Huber width (sigma): %f" % (huberGyro))
         print("\tDo time calibration: %s" % (not noTimeCalibration))
+        print("\tEstimate rolling-shutter line delay: %s" % estimateLineDelay)
         print("\tMax iterations: %d" % (maxIterations))
         print("\tTime offset padding: %f" % (timeOffsetPadding))
 
@@ -100,6 +104,7 @@ class IccCalibrator(object):
         ############################################
         #estimate the timeshift for all cameras to the main imu
         self.noTimeCalibration = noTimeCalibration
+        self.estimateLineDelay = estimateLineDelay
         if not noTimeCalibration:
             for cam in self.CameraChain.camList:
                 cam.findTimeshiftCameraImuPrior(self.ImuList[0], verbose)
@@ -113,7 +118,12 @@ class IccCalibrator(object):
         ## init optimization problem
         ############################################
         #initialize a pose spline using the camera poses in the camera chain
-        poseSpline = self.CameraChain.initializePoseSplineFromCameraChain(splineOrder, poseKnotsPerSecond, timeOffsetPadding)
+        shutterPadding = max([
+            0.5 * cam.camConfig.getResolution()[1] * (cam.getLineDelaySeconds() or 0.0)
+            for cam in self.CameraChain.camList
+        ] + [0.0])
+        poseSpline = self.CameraChain.initializePoseSplineFromCameraChain(
+            splineOrder, poseKnotsPerSecond, timeOffsetPadding + shutterPadding)
         
         # Initialize bias splines for all IMUs
         for imu in self.ImuList:
@@ -123,7 +133,9 @@ class IccCalibrator(object):
         problem = inc.CalibrationOptimizationProblem()
 
         # Initialize all design variables.
-        self.initDesignVariables(problem, poseSpline, noTimeCalibration, noChainExtrinsics, initialGravityEstimate = estimatedGravity)
+        self.initDesignVariables(problem, poseSpline, noTimeCalibration, noChainExtrinsics,
+                                 initialGravityEstimate=estimatedGravity,
+                                 estimateLineDelay=estimateLineDelay)
         
         ############################################
         ## add error terms
@@ -197,9 +209,21 @@ class IccCalibrator(object):
         rval = estimator.addBatch(self.problem, True)    
         est_stds = np.sqrt(estimator.getSigma2Theta().diagonal())
         
-        #split and store the variance
+        #split and store the variance in camera design-variable order
         self.std_trafo_ic = np.array(est_stds[0:6])
-        self.std_times = np.array(est_stds[6:])
+        self.std_times = np.full(len(self.CameraChain.camList), np.nan)
+        self.std_line_delays = np.full(len(self.CameraChain.camList), np.nan)
+        index = 6
+        for camNr, cam in enumerate(self.CameraChain.camList):
+            if not self.noTimeCalibration:
+                self.std_times[camNr] = est_stds[index]
+                index += 1
+            if self.estimateLineDelay and cam.isRollingShutter():
+                self.std_line_delays[camNr] = est_stds[index]
+                index += 1
+        if index != len(est_stds):
+            raise RuntimeError("Invalid covariance index range: used {} of {} values".format(
+                index, len(est_stds)))
     
     def saveImuSetParametersYaml(self, resultFile):
         imuSetConfig = kc.ImuSetParameters(resultFile, True)
@@ -227,6 +251,10 @@ class IccCalibrator(object):
                 #imu to cam timeshift
                 timeshift = float(self.CameraChain.getResultTimeShift(camNr))
                 chain.setTimeshiftCamImu(camNr, timeshift)
+
+            if self.CameraChain.camList[camNr].isRollingShutter():
+                self.CameraChain.camList[camNr].camConfig.setLineDelay(
+                    self.CameraChain.getResultLineDelay(camNr))
              
         try:
             chain.writeYaml(resultFile)
