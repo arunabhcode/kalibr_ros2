@@ -123,9 +123,14 @@ ament_python_install_package(kalibr_errorterms
   PACKAGE_DIR python/kalibr_errorterms
 )
 
+ament_python_install_package(kalibr_rs_camera_calibration
+  PACKAGE_DIR python/kalibr_rs_camera_calibration
+)
+
 # Install Python executables
 install(PROGRAMS
   python/kalibr_calibrate_imu_camera
+  python/kalibr_calibrate_rs_cameras
   scripts/kalibr_calibrate_cameras
   DESTINATION lib/${PROJECT_NAME}
 )

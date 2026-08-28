@@ -20,6 +20,8 @@
   <exec_depend>python3-scipy</exec_depend>
   <exec_depend>python3-opencv</exec_depend>
   <exec_depend>python3-yaml</exec_depend>
+  <exec_depend>python3-igraph</exec_depend>
+  <exec_depend>python3-wxgtk4.0</exec_depend>
 
   <!-- Internal dependencies - C++ libraries -->
   <depend>sm_common</depend>
